@@ -1,4 +1,4 @@
-import { NextPage, GetServerSideProps } from "next";
+import { NextPage, GetStaticProps } from "next";
 
 interface Props {}
 
@@ -6,7 +6,7 @@ const Index: NextPage<Props> = ({}) => {
   return <div></div>;
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     props: {},
   };
