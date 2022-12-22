@@ -1,13 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
+import Link from "next/link";
+import { Hanken_Grotesk } from "@next/font/google";
 import styles from "../styles/Home.module.scss";
 import UploadImageField from "../components/UploadImageField";
 import { useState } from "react";
 import GreyscaleImage from "../components/GreyscaleImage";
 import { ReactCompareSlider } from "react-compare-slider";
 
-const inter = Inter({ subsets: ["latin"] });
+const HG = Hanken_Grotesk({ weight: ["400", "700"], subsets: ["latin"] });
 
 export default function Home() {
   const [imagePath, setImagePath] = useState<string>();
@@ -21,32 +22,44 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        {typeof formData !== "string" && typeof formData !== "undefined" ? (
-          <ReactCompareSlider
-            itemOne={<GreyscaleImage imagePath={imagePath ? imagePath : ""} />}
-            itemTwo={
-              <Image
-                alt=""
-                src={`http://localhost:5001/files/file/${
-                  formData!.get("fileName")?.toString().split(".")[0]
-                }.${formData!.get("fileName")?.toString().split(".")[1]}`}
-                width={500}
-                height={500}
-              ></Image>
-            }
-          ></ReactCompareSlider>
-        ) : typeof formData === "string" ? (
-          <div>{formData}</div>
-        ) : (
-          <div></div>
-        )}
+      <div className={styles.App}>
+        <nav className={styles.nav}>
+          <h1 className={styles.title}>Image Filter Project</h1>
+          <ul>
+            <li className={styles.li}>
+              <Link href="/login">Login</Link>
+            </li>
+          </ul>
+        </nav>
+        <main className={styles.main}>
+          {typeof formData !== "string" && typeof formData !== "undefined" ? (
+            <ReactCompareSlider
+              itemOne={
+                <GreyscaleImage imagePath={imagePath ? imagePath : ""} />
+              }
+              itemTwo={
+                <Image
+                  alt=""
+                  src={`http://localhost:5001/files/file/${
+                    formData!.get("fileName")?.toString().split(".")[0]
+                  }.${formData!.get("fileName")?.toString().split(".")[1]}`}
+                  width={500}
+                  height={500}
+                ></Image>
+              }
+            ></ReactCompareSlider>
+          ) : typeof formData === "string" ? (
+            <div>{formData}</div>
+          ) : (
+            <div></div>
+          )}
 
-        <UploadImageField
-          setImagePath={setImagePath}
-          setFormData={setFormData}
-        />
-      </main>
+          <UploadImageField
+            setImagePath={setImagePath}
+            setFormData={setFormData}
+          />
+        </main>
+      </div>
     </>
   );
 }
