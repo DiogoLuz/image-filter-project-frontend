@@ -6,7 +6,12 @@ import styles from "../styles/Home.module.scss";
 import UploadImageField from "../components/UploadImageField";
 import { useState } from "react";
 import GreyscaleImage from "../components/GreyscaleImage";
-import { ReactCompareSlider } from "react-compare-slider";
+import {
+  ReactCompareSlider,
+  ReactCompareSliderHandle,
+} from "react-compare-slider";
+import Navbar from "../components/Navbar";
+import { useRouter } from "next/router";
 
 const HG = Hanken_Grotesk({ weight: ["400", "700"], subsets: ["latin"] });
 
@@ -14,6 +19,7 @@ export default function Home() {
   const [imagePath, setImagePath] = useState<string>();
   const [formData, setFormData] = useState<FormData | string>();
   console.log(formData);
+  const { asPath } = useRouter();
   return (
     <>
       <Head>
@@ -22,18 +28,24 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className={styles.App}>
-        <nav className={styles.nav}>
-          <h1 className={styles.title}>Image Filter Project</h1>
-          <ul>
-            <li className={styles.li}>
-              <Link href="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
+      <div className="App">
+        <Navbar path={asPath} />
         <main className={styles.main}>
           {typeof formData !== "string" && typeof formData !== "undefined" ? (
             <ReactCompareSlider
+              handle={
+                <ReactCompareSliderHandle
+                  buttonStyle={{
+                    WebkitBackdropFilter: undefined,
+                    backdropFilter: undefined,
+                    backgroundColor: "white",
+                    border: 0,
+                    boxShadow: undefined,
+                    color: "#444",
+                  }}
+                  linesStyle={{ opacity: 0.5 }}
+                />
+              }
               itemOne={
                 <GreyscaleImage imagePath={imagePath ? imagePath : ""} />
               }
