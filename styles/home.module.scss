@@ -1,27 +1,5 @@
-.App {
+.main {
   height: 100vh;
-  width: 100vw;
-  .nav {
-    display: flex;
-    background-color: rgb(96, 83, 143);
-    height: 5%;
-    align-items: center;
-    justify-content: center;
-    color: white;
-
-    h1 {
-      font-weight: 700;
-      margin-right: auto;
-      margin-left: auto;
-    }
-
-    li {
-      list-style-type: none;
-    }
-  }
-  .main {
-    height: 100vh;
-    background-color: rgb(69, 60, 103);
-    color: white;
-  }
+  background-color: rgb(69, 60, 103);
+  color: white;
 }
